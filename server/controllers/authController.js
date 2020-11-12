@@ -38,8 +38,8 @@ module.exports = {
 
         //if the foundUser is defined, let's compare passwords 
         const authenticated = bcrypt.compareSync(password, foundUser.password)
-        if(authenticated){
-            req.session.user = {
+        if(authenticated){ //if the passwords match - password and foundUser.password
+            req.session.user = { //foundUser is the user we have on the database
                 userId: foundUser.user_id,
                 email: foundUser.email,
                 username: foundUser.username
@@ -61,7 +61,7 @@ module.exports = {
         if(req.session.user){
             res.status(200).send(req.session.user)
         }else{
-            res.status(202).send("Please login")
+            res.status(404).send("Please login")
         }
         //now build endpoint in index.js
     }

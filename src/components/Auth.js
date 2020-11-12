@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {connect} from 'react-redux';
+import {loginUser} from '../redux/reducer'
 
 class Auth extends Component {
     constructor(){
@@ -33,14 +35,18 @@ class Auth extends Component {
     //check the controller, we have const {email, password} = req.body
     //body always comes on an object so it's not in arrays 
     login = async (e) => {
-        e.preventDefault(); //this stops it from refreshing the page 
+        e.preventDefault(); //this stops it from refreshing the page you need this if you have a form tag
         const {email, password} = this.state //capture values on state that my user is typing in
         //to catch errors with async functions, you can put things with try and catch blocks
         //it will attempt the try functionality otherwise go to catch
         try {
             const user = await axios.post('/auth/login', {email, password})
             //we will take the response back from '/auth/login' which is the session (req.session.user)
-            alert(user);
+            //alert(user);
+            this.props.loginUser(user.data) //invoking the same function from the reducer which will be put into the user session
+            //above is an axios call to the above axios.post('/auth/login')
+            //sends the user object we have in our session
+            //this.props.loginUser on our props object by importing from our reducer and including it into our connect function at the bottom of the page
             this.props.history.push('/feed') //once they login we will send them directly to the feed page
         }
         catch(error){
@@ -53,7 +59,8 @@ class Auth extends Component {
         const {email, password, username} = this.state 
         try {
             const user = await axios.post('/auth/register', {email, username, password})
-            alert(user.data.username);
+            //alert(user.data.username);
+            this.props.loginUser(user.data) 
             this.props.history.push('/feed') //even after you register, you want to go straight to the feed site
             //props is an object with history, location and match properties
             //history is like an array of different paths on the site
@@ -128,4 +135,9 @@ class Auth extends Component {
     }
 }
 
-export default Auth;
+const mapStateToProps = state => state
+
+export default connect(mapStateToProps, {loginUser})(Auth);
+
+//if you look at the Auth Component in React Dev Tools, youll see the props it has access to
+//store is mapping its state to props with mapStateToProps
