@@ -50,11 +50,17 @@ class Auth extends Component {
 
     register = async (e) => {
         e.preventDefault();
-        const {email, username} = this.state 
+        const {email, password, username} = this.state 
         try {
-            const user = await axios.post('/auth/register', {email, username})
-            alert(user);
+            const user = await axios.post('/auth/register', {email, username, password})
+            alert(user.data.username);
             this.props.history.push('/feed') //even after you register, you want to go straight to the feed site
+            //props is an object with history, location and match properties
+            //history is like an array of different paths on the site
+            //will add a new url route to that array and acts like a redirect
+            //you could have a link tag, but that will instantly change the route
+            //if someone logs in, you dont want a link, bc if there is an error in logging in 
+            //inside the try block it will fire one at a time, once logging in is successful props.history.push will redirect
         }
         catch(error){
             alert(error.response.request.response) 
