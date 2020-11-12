@@ -10,4 +10,4 @@ class Form extends Component {
     }
 }
 
-export default Auth
+export default Form
