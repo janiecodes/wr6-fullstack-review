@@ -62,6 +62,8 @@ CREATE TABLE comments (
             - authController.js
             - postController.js (endpoints for post)
             - commentController.js (endpoints for comments)
+    - dotenv
+    
 - Endpoints:
     - authController Endpoints:
         - register => '/auth/register'
