@@ -54,6 +54,7 @@ module.exports = {
     logout: (req, res) => {
         req.session.destroy();
         res.sendStatus(200);
+        //now build endpoint in index.js
     },
 
     getUser: (req, res) => {
@@ -62,5 +63,12 @@ module.exports = {
         }else{
             res.status(202).send("Please login")
         }
+        //now build endpoint in index.js
     }
 }
+
+//after building the endpoints, you can start with frontend
+//install the frontend dependencies listed in the plan
+//axios, react-router-dom, redux, react-redux, redux-promise-middleware
+//create a routes file in the src folder
+//then add a components folder now with your components

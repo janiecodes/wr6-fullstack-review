@@ -91,7 +91,7 @@ CREATE TABLE comments (
         - reset.css
         - routes.js
             -'/' => Auth.js
-            -'/createpost' => Form.js
+            -'/create_post' => Form.js
             -'/feed' => Feed.js
             - no need to makea  route for Post bc that lives in Feed.js
         - redux/
